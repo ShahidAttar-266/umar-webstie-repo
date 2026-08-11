@@ -2839,14 +2839,14 @@ const CTAAnimation = {
   // ==========================================================================
   const ImageTrail = {
     images: [
-      'https://cdn.prod.website-files.com/691d7c9f14d0280ebe2d4108/693a080d17ca1d8d0c085a58_Frame%20116046298.avif',
-      'https://cdn.prod.website-files.com/691d7c9f14d0280ebe2d4108/693a07b45d5bf5df6ed763ff_Frame%20116046247.avif',
-      'https://cdn.prod.website-files.com/691d7c9f14d0280ebe2d4108/693a07b48a5e0c4375823c97_Frame%20116046251.avif',
-      'https://cdn.prod.website-files.com/691d7c9f14d0280ebe2d4108/693a07b4729e06b7b9774003_Frame%20116046250.avif',
-      'https://cdn.prod.website-files.com/691d7c9f14d0280ebe2d4108/693a07b40e774226223d6d23_Frame%20116046242.avif',
-      'https://cdn.prod.website-files.com/691d7c9f14d0280ebe2d4108/693a07b4c7536983db8aa94b_Frame%20116046243.avif',
-      'https://cdn.prod.website-files.com/691d7c9f14d0280ebe2d4108/693a07b4ea501cfa7bfc61bc_Frame%20116046248.avif',
-      'https://cdn.prod.website-files.com/691d7c9f14d0280ebe2d4108/693a04eefa82a9886bdc4a85_Frame%20116046241.avif'
+      'assets/images/frames/frame-116046298.avif',
+      'assets/images/frames/frame-116046247.avif',
+      'assets/images/frames/frame-116046251.avif',
+      'assets/images/frames/frame-116046250.avif',
+      'assets/images/frames/frame-116046242.avif',
+      'assets/images/frames/frame-116046243.avif',
+      'assets/images/frames/frame-116046248.avif',
+      'assets/images/frames/frame-116046241.avif'
     ],
     config: {
       wrapperSelector: '.footer-logo',
