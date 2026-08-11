@@ -1366,7 +1366,7 @@
       const yToCenter = window.innerHeight / 2 - (rect.top + rect.height / 2);
 
       gsap.set(logo, { autoAlpha: 1, y: yToCenter, x: window.innerWidth });
-      gsap.set(letters, { yPercent: 110 });
+      gsap.set(letters, { yPercent: 110, autoAlpha: 1 });
       gsap.set(navSeps, { height: "0vw", autoAlpha: 1 });
       // Capture original display value so we can restore it after the preloader.
       // We hide via display:none inside the timeline (not during init) so GhostEngine
@@ -1381,32 +1381,32 @@
       // GhostEngine has measured the children, so FLIP positioning works correctly.
       if (navLogoItem) this.timeline.set(navLogoItem, { display: "none" }, 0);
 
+      // Slide logo SVG into center position while letters enter in sequence (N, E, S, H)
       this.timeline.to(logo, {
         x: xToCenter,
-        duration: 1,
-        ease: "power3.inOut",
-      });
+        duration: 0.9,
+        ease: "power3.out",
+      }, 0);
       this.timeline.to(
         letters,
-        { yPercent: 0, duration: 1, stagger: 0.2, ease: "power3.out" },
+        { yPercent: 0, duration: 0.7, stagger: 0.1, ease: "power3.out" },
         "<",
       );
 
+      // Smooth climb from center to natural top nav position (x:0, y:0).
+      // Starts at t=1.15s after all 4 letters (including H at t=1.0s) have fully revealed and settled.
       this.timeline.to(
         logo,
-        { x: 0, y: 0, duration: 1, ease: "power2.inOut" },
-        1,
+        { x: 0, y: 0, duration: 0.85, ease: "power3.inOut" },
+        1.15,
       );
 
-      // Show the nav-container at t=1.4 (40% through the logo's y-climb) so the
-      // hero reveal chain can run while the preloader logo finishes its climb.
-      // Inner elements stay hidden via their own autoAlpha:0 / mask states; the
-      // real nav logo + copyright (.nav-logo-item) reveal at t=2 when the
-      // preloader logo hides — a clean handoff.
+      // Show the nav-container at t=1.4 so hero reveal chain can run while preloader logo finishes climb.
+      // Inner elements stay hidden via their own autoAlpha:0 / mask states; real nav logo reveals at t=2.0s.
       this.timeline.set(navContainer, { autoAlpha: 1 }, 1.4);
-      this.timeline.set(logo, { display: "none" }, 2);
+      this.timeline.set(logo, { display: "none" }, 2.0);
       if (navLogoItem)
-        this.timeline.set(navLogoItem, { display: navLogoItemDisplay }, 2);
+        this.timeline.set(navLogoItem, { display: navLogoItemDisplay }, 2.0);
 
       // Mask-wrap each nav link for y-reveal (no opacity)
       const navLinkInners = [];
@@ -3814,6 +3814,107 @@
     STATE.initialized = false;
   }
 
+  // ==========================================================================
+  // FAQ ACCORDION MODULE
+  // ==========================================================================
+  const FaqAccordion = {
+    init() {
+      const faqElements = document.querySelectorAll(".faq-colum-item");
+      if (faqElements.length === 0) return;
+
+      faqElements.forEach((item) => {
+        item.classList.remove("w-dropdown");
+        const toggle = item.querySelector(".faq-toggle, .w-dropdown-toggle") || item;
+        const list = item.querySelector(".faq-list, .w-dropdown-list");
+        const vLine = item.querySelector(".faq-icon-v-line");
+
+        if (!toggle) return;
+        toggle.classList.remove("w-dropdown-toggle");
+        if (list) list.classList.remove("w-dropdown-list");
+        toggle.style.cursor = "pointer";
+
+        // Hide FAQ answer lists by default unless opened
+        if (list && !item.classList.contains("w--open") && !item.classList.contains("is-open")) {
+          list.style.display = "none";
+          gsap.set(list, { height: 0, opacity: 0 });
+        }
+
+        toggle.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+          const isOpen = item.classList.contains("w--open") || item.classList.contains("is-open");
+
+          // Close all other open FAQ items
+          faqElements.forEach((other) => {
+            if (other !== item) {
+              other.classList.remove("w--open", "is-open");
+              const otherToggle = other.querySelector(".faq-toggle, .w-dropdown-toggle");
+              const otherList = other.querySelector(".faq-list, .w-dropdown-list");
+              const otherLine = other.querySelector(".faq-icon-v-line");
+
+              if (otherToggle) otherToggle.classList.remove("w--open", "is-open");
+              if (otherList) {
+                otherList.classList.remove("w--open", "is-open");
+                gsap.to(otherList, {
+                  height: 0,
+                  opacity: 0,
+                  duration: 0.35,
+                  ease: "power2.inOut",
+                  onComplete: () => {
+                    otherList.style.display = "none";
+                  },
+                });
+              }
+              if (otherLine) {
+                gsap.to(otherLine, { rotation: 0, duration: 0.3, ease: "power2.out" });
+              }
+            }
+          });
+
+          // Toggle current FAQ item
+          if (isOpen) {
+            item.classList.remove("w--open", "is-open");
+            toggle.classList.remove("w--open", "is-open");
+            if (list) {
+              list.classList.remove("w--open", "is-open");
+              gsap.to(list, {
+                height: 0,
+                opacity: 0,
+                duration: 0.35,
+                ease: "power2.inOut",
+                onComplete: () => {
+                  list.style.display = "none";
+                },
+              });
+            }
+            if (vLine) {
+              gsap.to(vLine, { rotation: 0, duration: 0.3, ease: "power2.out" });
+            }
+          } else {
+            item.classList.add("w--open", "is-open");
+            toggle.classList.add("w--open", "is-open");
+            if (list) {
+              list.style.display = "block";
+              list.classList.add("w--open", "is-open");
+              gsap.fromTo(
+                list,
+                { height: 0, opacity: 0 },
+                { height: "auto", opacity: 1, duration: 0.35, ease: "power2.inOut" },
+              );
+            }
+            if (vLine) {
+              gsap.to(vLine, { rotation: 90, duration: 0.3, ease: "power2.out" });
+            }
+          }
+        });
+      });
+
+      console.log("✓ FAQ Accordion initialized");
+    },
+  };
+
   function initAll() {
     if (STATE.initialized) {
       console.warn(
@@ -3837,6 +3938,7 @@
     Clipboard.init();
     ImageTrail.init();
     ButtonHover.init();
+    FaqAccordion.init();
 
     SwiperInit.init();
     LenisInit.init();
