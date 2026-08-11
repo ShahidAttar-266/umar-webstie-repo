@@ -1366,7 +1366,11 @@
       const yToCenter = window.innerHeight / 2 - (rect.top + rect.height / 2);
 
       gsap.set(logo, { autoAlpha: 1, y: yToCenter, x: window.innerWidth });
+<<<<<<< HEAD
       gsap.set(letters, { yPercent: 110, autoAlpha: 1 });
+=======
+      gsap.set(letters, { yPercent: 110 });
+>>>>>>> 58c566a1f820058a5462346764354091cc59a18b
       gsap.set(navSeps, { height: "0vw", autoAlpha: 1 });
       // Capture original display value so we can restore it after the preloader.
       // We hide via display:none inside the timeline (not during init) so GhostEngine
@@ -1381,6 +1385,7 @@
       // GhostEngine has measured the children, so FLIP positioning works correctly.
       if (navLogoItem) this.timeline.set(navLogoItem, { display: "none" }, 0);
 
+<<<<<<< HEAD
       // Slide logo SVG into center position while letters enter in sequence (N, E, S, H)
       this.timeline.to(logo, {
         x: xToCenter,
@@ -1407,6 +1412,34 @@
       this.timeline.set(logo, { display: "none" }, 2.0);
       if (navLogoItem)
         this.timeline.set(navLogoItem, { display: navLogoItemDisplay }, 2.0);
+=======
+      this.timeline.to(logo, {
+        x: xToCenter,
+        duration: 1,
+        ease: "power3.inOut",
+      });
+      this.timeline.to(
+        letters,
+        { yPercent: 0, duration: 1, stagger: 0.2, ease: "power3.out" },
+        "<",
+      );
+
+      this.timeline.to(
+        logo,
+        { x: 0, y: 0, duration: 1, ease: "power2.inOut" },
+        1,
+      );
+
+      // Show the nav-container at t=1.4 (40% through the logo's y-climb) so the
+      // hero reveal chain can run while the preloader logo finishes its climb.
+      // Inner elements stay hidden via their own autoAlpha:0 / mask states; the
+      // real nav logo + copyright (.nav-logo-item) reveal at t=2 when the
+      // preloader logo hides — a clean handoff.
+      this.timeline.set(navContainer, { autoAlpha: 1 }, 1.4);
+      this.timeline.set(logo, { display: "none" }, 2);
+      if (navLogoItem)
+        this.timeline.set(navLogoItem, { display: navLogoItemDisplay }, 2);
+>>>>>>> 58c566a1f820058a5462346764354091cc59a18b
 
       // Mask-wrap each nav link for y-reveal (no opacity)
       const navLinkInners = [];
@@ -3814,6 +3847,7 @@
     STATE.initialized = false;
   }
 
+<<<<<<< HEAD
   // ==========================================================================
   // FAQ ACCORDION MODULE
   // ==========================================================================
@@ -3915,6 +3949,8 @@
     },
   };
 
+=======
+>>>>>>> 58c566a1f820058a5462346764354091cc59a18b
   function initAll() {
     if (STATE.initialized) {
       console.warn(
@@ -3938,7 +3974,10 @@
     Clipboard.init();
     ImageTrail.init();
     ButtonHover.init();
+<<<<<<< HEAD
     FaqAccordion.init();
+=======
+>>>>>>> 58c566a1f820058a5462346764354091cc59a18b
 
     SwiperInit.init();
     LenisInit.init();
