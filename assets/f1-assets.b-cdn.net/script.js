@@ -934,8 +934,8 @@ const HorizontalScroll = {
           '.nav-email-item': { background: 'rgba(94, 94, 94, 0.50)' }
         },
         light: {
-          '.nav-email-wrap': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(223, 222, 206, 0.80)', color: '#000000' },
-          '.nav-email-item': { background: '#C9C8BA' }
+          '.nav-email-wrap': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(233, 238, 245, 0.80)', color: '#111318' },
+          '.nav-email-item': { background: '#B9C7E8' }
         }
       },
       {
@@ -946,7 +946,7 @@ const HorizontalScroll = {
           '.happy-ring-white, .semiconbio-white': { opacity: 1 }
         },
         light: {
-          '.nav-comapny-wrap': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(223, 222, 206, 0.80)', color: '#000000' },
+          '.nav-comapny-wrap': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(233, 238, 245, 0.80)', color: '#111318' },
           '.happy-ring, .semiconbio': { opacity: 1 },
           '.happy-ring-white, .semiconbio-white': { opacity: 0 }
         }
@@ -959,9 +959,9 @@ const HorizontalScroll = {
           '.nav-item-bg': { border: '1px solid rgba(255, 255, 255, 0.03)', background: 'rgba(57, 57, 57, 0.90)' }
         },
         light: {
-          '.nav-menu': { color: '#000000' },
-          '.nav-menu-bg': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(223, 222, 206, 0.80)' },
-          '.nav-item-bg': { border: '1px solid rgba(0, 0, 0, 0.10)', background: '#EBEADA' }
+          '.nav-menu': { color: '#111318' },
+          '.nav-menu-bg': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(233, 238, 245, 0.80)' },
+          '.nav-item-bg': { border: '1px solid rgba(0, 0, 0, 0.10)', background: '#B9C7E8' }
         },
         onDark: () => {
           Utils.$$('.nav-item-bg').forEach(el => el.classList.add('nav-item-dark'));
@@ -977,8 +977,8 @@ const HorizontalScroll = {
           '.nav-stats-wrap .nav-top-bg': { border: '1px solid rgba(255, 255, 255, 0.10)', background: 'rgba(29, 29, 29, 0.60)' }
         },
         light: {
-          '.nav-stats-wrap': { color: '#000000' },
-          '.nav-stats-wrap .nav-top-bg': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(223, 222, 206, 0.80)' }
+          '.nav-stats-wrap': { color: '#111318' },
+          '.nav-stats-wrap .nav-top-bg': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(233, 238, 245, 0.80)' }
         },
         onDark: () => {
           Utils.$('.nav-experience-text')?.classList.add('text-color-white');
@@ -1001,9 +1001,9 @@ const HorizontalScroll = {
           '.social-path-white': { fill: 'var(--black)' }
         },
         light: {
-          '.nav-top-layout': { color: '#000000' },
-          '.nav-top-layout > .nav-top-bg': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(223, 222, 206, 0.80)' },
-          '.social-link': { backgroundColor: '#EBEADA', color: 'var(--black)' },
+          '.nav-top-layout': { color: '#111318' },
+          '.nav-top-layout > .nav-top-bg': { border: '1px solid rgba(255, 255, 255, 0.20)', background: 'rgba(233, 238, 245, 0.80)' },
+          '.social-link': { backgroundColor: '#B9C7E8', color: 'var(--black)' },
           '.social-path-white': { fill: 'var(--white)' }
         },
         onDark: () => {
@@ -2771,7 +2771,7 @@ const CTAAnimation = {
       const chars = target.querySelectorAll('.anim-char');
   
       gsap.fromTo(chars,
-        { color: '#E0DFC5', filter: 'blur(0px)', opacity: 0.1, y: 5 },
+        { color: '#B9C7E8', filter: 'blur(0px)', opacity: 0.1, y: 5 },
         {
           color: 'black', filter: 'blur(0px)', opacity: 1, y: 0,
           force3D: true, duration: 0.5, stagger: 0.1, ease: 'power1.out',
@@ -3139,7 +3139,7 @@ const CTAAnimation = {
             onComplete: () => {
               clipboardText.textContent = 'Copy to clipboard';
               if (clipboardIcon) gsap.set(clipboardIcon, { display: 'none' });
-              gsap.set(clipboardItem, { backgroundColor: '#EBEADA' });
+              gsap.set(clipboardItem, { backgroundColor: '#B9C7E8' });
               isClicked = false;
             }
           });
@@ -3161,7 +3161,7 @@ const CTAAnimation = {
               );
             }
   
-            gsap.to(clipboardItem, { backgroundColor: '#FFFF23', duration: 0.3, ease: 'power2.out' });
+            gsap.to(clipboardItem, { backgroundColor: '#2457FF', duration: 0.3, ease: 'power2.out' });
           } catch (err) {
             console.error('Failed to copy text: ', err);
           }
