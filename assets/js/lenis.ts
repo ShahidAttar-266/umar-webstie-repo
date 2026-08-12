@@ -374,14 +374,14 @@ export class Lenis {
       programmatic: false,
       ...(isSyncTouch
         ? {
-            lerp: hasTouchInertia ? this.options.syncTouchLerp : 1,
-            // immediate: !hasTouchInertia,
-          }
+          lerp: hasTouchInertia ? this.options.syncTouchLerp : 1,
+          // immediate: !hasTouchInertia,
+        }
         : {
-            lerp: this.options.lerp,
-            duration: this.options.duration,
-            easing: this.options.easing,
-          }),
+          lerp: this.options.lerp,
+          duration: this.options.duration,
+          easing: this.options.easing,
+        }),
     })
   }
 
